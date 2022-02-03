@@ -1,14 +1,16 @@
+require('dotenv').config()
 const PORT = 8000;
 var express = require('express');
 var mysql = require('mysql');
 var cors = require('cors');
 
+
 var connection = mysql.createConnection({
-  host: 'teaching-future-leaders.copur53zxbbu.us-east-1.rds.amazonaws.com',
-  port: 3306,
-  user: 'admin',
-  password: 'BrutusEchoCade2022',
-  database: 'sys',
+  host: process.env.AWS_HOST,
+  port: process.env.AWS_PORT,
+  user: process.env.AWS_USER,
+  password: process.env.AWS_PASSWORD,
+  database: process.env.AWS_DATABASE,
 });
 
 var app = express();
@@ -18,6 +20,7 @@ connection.connect((error) => {
   if (error) {
     throw error;
   }
+  console.log('Connected to database successfully.');
 });
 
 app.get('/', function (req, res) {});
